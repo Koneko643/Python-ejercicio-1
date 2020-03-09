@@ -1,0 +1,5 @@
+Espada de madera-50-Perecedero-43
+Espada corta-50-Imperecedero-1
+Pocion-20-Perecedero-20
+Elixir-80-Perecedero-30
+Palo-5-Perecedero-4

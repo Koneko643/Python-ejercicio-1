@@ -1,0 +1,96 @@
+Funcions del programa:
+-Gestionar usuaris (Jugadors) i elements:
+	-Jugadors 
+	[identificats pel seu nom (str)]
+	[Atribut salut (int)]
+	[Atribut riquessa (int)]
+	[Atribut qualitats (obj)]
+	[Atribut poseir elements (diversos) (llista del id(nom) de elements)]
+	-Qualitats 
+	[Atribut força (int)]
+	[Atribut màgia (int)]
+	[Atribut vel (int)]
+	-Elements 
+	[identificats pel nom (str)]
+	[Atribut preu (int)]
+	[Atribut fungible (no reutilizable) (bool)]
+	-Partida (Conté els elements disponibles (diccionari) i els jugadors (diccionari))
+
+
+Secuencia del programa:
+
+1 Inicialització: s'indiquen els elements disponibles previament en el archiu Elements.txt
+2 Menu: Funcions
+	Afegir jugador: Comprovar que no existeix previament. Salud=50. Riquessa=100. Força/Màgia/Vel introduides pel usuari
+	Eliminar jugador: Comprovar que el jugador existeix. Elimina al jugador
+	Decrementar salut: L'usuari indica el nom i el valor a disminuir. Comprovar que el jugador existeix. Si el jugador te salud 0 o menys s'elimina
+	Comprar element: L'usuari indica el nom del jugador i de l'element. Comprovar que el jugador existeix. Comprovar que el element existeix. Es redueix la riquessa del usuari , s'elimina l'element de la partida i s'afegeix al jugador
+	Usar element: L'usuari indica el nom del jugador i de l'element. Comprovar que el jugador existeix. Comprovar que poseeix l'element. Si es fungible desapareix 
+	Mostrar partida:Es mostra els elements disponibles i tota la informació dels jugadors
+	Cargar Partida: Carrega dades de un archiu txt previament creat que modifiquen els diccionaris dels elements i el dels jugadors
+	Guardar Partida: Guarda la informació dels elements i dels jugadors de la partida actual en un archiu txt
+	Finalitzar Partida: Acaba el programa
+
+Funcions i clases:
+	Clases:
+		Jug:
+			Atributs:
+				Quali (obj)
+				Nom (str)
+				Riquessa (int)
+				Salut (int)
+				Elements (list)
+			Funcions:
+				print: Retorna un str dirigit al usuari amb les dades dels atributs
+				Dev: Retorna un str en codi que conte les dades dels atributs incluent la el retorn de la funció Dev del obj Qualitats
+				Decrement: Resta el valor introduit al atribut salut i retorna un boolea depenent si el resultat es menor a 0
+				Compra: Si el atribut riquessa es major al preu del element introduit s'afegeix el element i es resta el preu al atribut riquessa, en cas contrari es retorna un ValueError
+				UsElem: Es comprova si l'element a utilitzar esta en el atribut llista d'elements del jugador, en cas negatiu s'aixeca una excepcio, en cas afirmatiu es comprova si es fungible o no. Si es fungible s'elimina del atribut llista
+		Part:
+			Atributs:
+				LlistaJugadors (diccionari [Nom:obj])
+				LlistaElements (diccionari [Nom:obj])
+			Funcions:
+				print: Retorna un str dirigit al usuari amb les dades dels atributs
+				Dev: Retorna un str en codi que conte les dades dels atributs
+				CarregarPartida: Inicialitza la llista de objectes d'acord a les dades del arxiu Elements.txt
+				JugConfirm: Comprova si el nom introduit esta en el diccionari LlistaJugadors, retorna un boolea
+				ElemConfirm: El mateix que JugConfirm pero amb la LlistaElements
+				NouJugador: Afegeix al diccionari la clau (nom) i el contingut (obj) a partir de les dades rebudes
+				ElimJugador: Elimina del diccionari la entrada amb la mateixa clau (nom) introduida
+				RestSalut: Activa la funcio Decrement del obj jugador seleccionat (nom introduit) i si el retorn es True elimina la entreda d'aquest jugador del atribut LlistaJugadors
+				ComprarElem: Activa la funcio Compra del obj del jugador seleccionat (nom introduit) si en la LlistaElements consta que la quantitat no es 0, en cas contrari activa un TypeError
+				UsarElement: Activa la funcio UsElem del jugador introduit amb el nom del element introduit
+				Guardar: Activa les funcions Dev de tots els jugadors del atribut LlistaJugadors i dels elements del atribut LlistaElements, monta un str en codi ambb totes les dades i la retorna
+				Borrar: Resetea el diccionari de LlistaJugadors
+		Elem:
+			Atributs:
+				Nom (str)
+				Preu (int)
+				Fungible (bool)
+			Funcions:
+				print: Retorna un str dirigit al usuari amb les dades dels atributs
+				Dev: Retorna un str en codi que conte les dades dels atributs
+				Preu: Retorna el atribut Preu
+				Fungi: Retorna el atribut Fungi
+				Namae: Retorna el atribut Namae
+		Qual:
+			Atributs:
+				Força (int)
+				Magia (int)
+				Velocitat (int)
+			Funcions:
+				print: Retorna un str dirigit al usuari amb les dades dels atributs
+				Dev: Retorna un str en codi que conte les dades dels atributs
+
+	Funcions del main:
+		CompJug: Comprova si el jugador introduit ja esta com atribut del obj (Part), el nom i un retorna un boolea
+		CompElem: Comprova si el element introduit ja esta com atribut del obj (Part), el nom i un retorna un boolea
+		Guardar: Recopila un codi str amb la funcio Dev de la obj (Part) i el guarda en un arxiu txt nou o ja existent de la carpeta Partides
+		Cargar: Comprova si en la carpeta Partides, mitjançant el arxiu SelecPart.txt, existeix la partida que es vol carregas, en cas afirmatiu s'obre el arxiu txt i amb les dades obtingudes s'executen les funcions del obj(Part) per modificar els seus atributs
+		NuevoJugador: Comprova que les dades introduides siguin correctes i despres activa la funció NouJugador del obj (Part)
+		ElimJug: Comprova que les dades introduides siguin correctes i despres activa la funció ElimJugador del obj (Part)
+		RestarSalut: Comprova que les dades introduides siguin correctes i despres activa la funció RestSalut del obj (Part)
+		Buy: Comprova que les dades introduides siguin correctes i despres activa la funció ComprarElem del obj (Part)
+		UsarElem: Comprova que les dades introduides siguin correctes i despres activa la funció UsarElement del obj (Part)
+
