@@ -37,7 +37,7 @@ def Cargar():
     fitxer=open("Partidas/SelecPart.txt","r")
     part=fitxer.read().split("\n")
     fitxer.close()
-    if len(part)>0:
+    if len(part)>1:
         
         #Comprova si la partida a cargar existeix
         Ex1=True
@@ -45,7 +45,7 @@ def Cargar():
             ncarga=input("Introdueix el nom de la partida: ")
             
             #Si la partida existeix comença a carregar la informació
-            if ncarga in part and ncarga !="":
+            if ncarga in part and ncarga !="Partidas guardadas:":
                 fitxer=open("Partidas/"+ncarga+".txt","r")
                 dats=fitxer.read()
                 fitxer.close()
