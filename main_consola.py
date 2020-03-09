@@ -10,7 +10,7 @@ def CompElem():
     Confirm=Joc.ElemConfirm(Name)
     return Confirm,Name
 
-#Comando para guardar partida
+#Comanda para guardar partida
 def Guardar():
     
     nom=input("¡Recorda que si ja existeix una partida amb el mateix nom es sobreescriurà\nIntrodueix el nom de la partida: ")
@@ -24,7 +24,6 @@ def Guardar():
     #Si el fitxer no existia abans es guarda el seu nom en el arxiu que emmagatzema les partides guardades
     fitxerl=open("Partidas/SelecPart.txt","r")
     PartidasG=fitxerl.read()
-    print(PartidasG)
     PartidasG.split("\n")
     if nom not in PartidasG:
         fitxerw=open("Partidas/SelecPart.txt","a")
