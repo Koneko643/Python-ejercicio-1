@@ -24,7 +24,7 @@ def Guardar():
     #Si el fitxer no existia abans es guarda el seu nom en el arxiu que emmagatzema les partides guardades
     fitxerl=open("Partidas/SelecPart.txt","r")
     PartidasG=fitxerl.read()
-    PartidasG.split("\n")
+    PartidasG=PartidasG.split("\n")
     if nom not in PartidasG:
         fitxerw=open("Partidas/SelecPart.txt","a")
         fitxerw.write("\n"+nom)
